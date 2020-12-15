@@ -1,8 +1,7 @@
-FROM nginx:latest
+FROM node:6.14.2
 
-COPY index.html /usr/share/nginx/html
-COPY linux.png /usr/share/nginx/html
+EXPOSE 8080
 
-EXPOSE 80 443
+COPY server.js .
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD node server.js
