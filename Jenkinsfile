@@ -21,7 +21,7 @@ stage('Sonarqube') {
         scannerHome = tool 'SonarQube'
     }
         withSonarQubeEnv('sonarqube') {
-            sh "~jenkins-data/sonarqube/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner"
+            sh "${scannerHome}/bin/sonar-scanner"
         }
         timeout(time: 10, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
