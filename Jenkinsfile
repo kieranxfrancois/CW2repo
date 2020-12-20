@@ -17,7 +17,7 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://hub.docker.com/repository/docker/kieranxfrancois/cw2repo', 'kieran-francois-cw') {
+        docker.withRegistry('https://hub.docker.com/repository/docker/kieranxfrancois/cw2repo', 'bae275df-7114-46d1-9046-87e10770d0fa') {
             app.push("${env.BUILD_NUMBER}")
             app.push("latest")
         }
