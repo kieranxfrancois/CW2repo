@@ -15,6 +15,7 @@ node {
             app.push("latest")
         }
     }
+
     
 stage('SonarQube') {
     environment {
