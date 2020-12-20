@@ -4,7 +4,18 @@ node {
     stage('Clone repository') {
         checkout scm
     }
-    stage('Sonarqube') {
+    
+    stage('Build image') {
+        app = docker.build("kieranxfrancois/cw2repo:1.0")
+    }
+    
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }
+        stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQube'
     }
@@ -13,20 +24,6 @@ node {
         }
         timeout(time: 10, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
-        }
-    }
-
-    
-    stage('Build image') {
-        app = docker.build("kieranxfrancois/cw2repo:1.0")
-    }
-    
-  
-
-    stage('Push image') {
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
         }
     }
 }
