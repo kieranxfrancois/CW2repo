@@ -4,11 +4,10 @@ node {
     stage('Clone repository') {
         checkout scm
     }
-      stage('Sonarqube') {
+    stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQube'
     }
-        steps {
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
@@ -16,7 +15,7 @@ node {
             waitForQualityGate abortPipeline: true
         }
     }
-}
+
     
     stage('Build image') {
         app = docker.build("kieranxfrancois/cw2repo:1.0")
