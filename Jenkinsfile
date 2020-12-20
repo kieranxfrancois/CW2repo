@@ -4,7 +4,10 @@ node {
     stage('Clone repository') {
         checkout scm
     }
-    
+      stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQube'
+    }
         steps {
         withSonarQubeEnv('sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
@@ -19,10 +22,7 @@ node {
         app = docker.build("kieranxfrancois/cw2repo:1.0")
     }
     
-        stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'SonarQube'
-    }
+  
 
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
