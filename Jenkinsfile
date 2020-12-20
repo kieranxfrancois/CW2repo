@@ -9,7 +9,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("kieranxfrancois/CW2repo:1.0.")
+        app = docker.build("kieranxfrancois/cw2repo:1.0")
     }
 
     stage('Push image') {
